@@ -17,6 +17,7 @@ A production-ready Telegram bot that extracts audio from user videos using FFmpe
 
 ```text
 mp_423/
+├── .env.example
 ├── bot.py
 ├── config.py
 ├── utils/
@@ -29,7 +30,13 @@ mp_423/
 
 ## Environment Variables
 
-Create a `.env` file in the project root:
+Copy `.env.example` to `.env` and fill in your values:
+
+```bash
+cp .env.example .env
+```
+
+`.env.example` content:
 
 ```env
 TELEGRAM_BOT_TOKEN=your_bot_token
@@ -110,6 +117,22 @@ docker run -d \
   -e MAX_VIDEO_SIZE_MB=100 \
   -e TEMP_DIR=./tmp \
   mp_423
+```
+
+### Non-Docker VPS with systemd
+
+1. Create app directory and copy project files to `/opt/telegram-audio-bot`.
+2. Create virtual environment and install dependencies.
+3. Copy `.env.example` to `.env` and set real values.
+4. Install the service file from `deploy/telegram-audio-bot.service` into `/etc/systemd/system/`.
+5. Update `User`, `WorkingDirectory`, `EnvironmentFile`, and `ExecStart` inside the service file to match your server.
+6. Enable and start the service:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable telegram-audio-bot
+sudo systemctl start telegram-audio-bot
+sudo systemctl status telegram-audio-bot
 ```
 
 ## Notes

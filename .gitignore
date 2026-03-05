@@ -22,3 +22,6 @@ mp_423-output.txt
 # telegram audio bot runtime files
 telegram_audio_bot/.env
 telegram_audio_bot/tmp/
+
+# environment variable files
+.env
